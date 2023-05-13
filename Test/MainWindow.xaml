@@ -1,0 +1,34 @@
+﻿<Window x:Class="Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test"
+        xmlns:vm="clr-namespace:Test.ViewModels"
+        xmlns:libex="clr-namespace:LibExcelView;assembly=LibExcelView"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <libex:ExcelView Name="excel"
+                         FileName="{Binding FileName}" 
+                         SheetName="{Binding SelectedSheetName,Mode=TwoWay}"/>
+        <Border Grid.Row="1"
+                    Margin="0 5 0 0" BorderThickness="0 1 0 0" BorderBrush="Gray">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding FileName,UpdateSourceTrigger=PropertyChanged}" MinWidth="150"/>
+                <ComboBox Margin="5 0 0 0"
+                          ItemsSource="{Binding ElementName=excel,Path=SheetNames}" 
+                          SelectedValue="{Binding SelectedSheetName}"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
